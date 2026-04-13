@@ -10,6 +10,14 @@ public class Flipper : MonoBehaviour
     public Rigidbody2D BodyGameObject;
     public GameObject Enemigo;
 
+    private Control InputActions;
+
+    private void Awake()
+    {
+        InputActions = new Control();
+
+    }
+
     void Start()
     {
    

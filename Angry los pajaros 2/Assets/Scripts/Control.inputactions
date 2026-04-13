@@ -1,0 +1,102 @@
+{
+    "name": "Control",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "0b802765-771a-40fc-9005-638440d3fcbb",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "715a151b-966d-4e43-81cc-66923ba7c72a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9aa41e1e-e2ec-4522-94ca-857e39f4973b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Pajaros con traseros",
+            "id": "67791501-44cd-44b2-a6c9-962edc4046fd",
+            "actions": [
+                {
+                    "name": "presionado",
+                    "type": "Button",
+                    "id": "c9059d05-9c86-4dfb-bd04-3298f2686bb3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "position",
+                    "type": "Value",
+                    "id": "325e3363-cdbc-43b6-bcb4-e021e0f17032",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Lanzar",
+                    "type": "Button",
+                    "id": "6ea365f2-5276-49bc-877f-39a5e0bf4b81",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "359e5ccb-4b4b-416f-923c-de445345ca79",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "presionado",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0f18181-26ed-4830-a32a-dea96bc47090",
+                    "path": "<Mouse>/position/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "947e6c9d-2f5d-490b-a93c-984439731ed4",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lanzar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
