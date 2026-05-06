@@ -2,35 +2,7 @@
     "name": "Control",
     "maps": [
         {
-            "name": "New action map",
-            "id": "0b802765-771a-40fc-9005-638440d3fcbb",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "715a151b-966d-4e43-81cc-66923ba7c72a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "9aa41e1e-e2ec-4522-94ca-857e39f4973b",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Pajaros con traseros",
+            "name": "Pajaros",
             "id": "67791501-44cd-44b2-a6c9-962edc4046fd",
             "actions": [
                 {
@@ -43,10 +15,10 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "position",
+                    "name": "Position",
                     "type": "Value",
                     "id": "325e3363-cdbc-43b6-bcb4-e021e0f17032",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -59,13 +31,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Clic",
+                    "type": "Button",
+                    "id": "8e1c8f60-acc6-4fa3-ac97-012fd588ec78",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "359e5ccb-4b4b-416f-923c-de445345ca79",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/anyKey",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -76,11 +57,11 @@
                 {
                     "name": "",
                     "id": "d0f18181-26ed-4830-a32a-dea96bc47090",
-                    "path": "<Mouse>/position/x",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "position",
+                    "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -92,6 +73,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lanzar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "883982d9-7b9a-410d-bea4-3b076c35fd61",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Clic",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4527879695c170e48ab28e317c7108e1, type: 3}
+  m_Name: cuchara
+  m_EditorClassIdentifier: 
+  nombre: cuchara
+  sprite: {fileID: -6543225072049094477, guid: 9cdf5189377ae0b4d994b711a807f33e, type: 3}

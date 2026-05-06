@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Flipper : MonoBehaviour
 {
@@ -9,14 +10,6 @@ public class Flipper : MonoBehaviour
     // private bool Body = false;
     public Rigidbody2D BodyGameObject;
     public GameObject Enemigo;
-
-    private Control InputActions;
-
-    private void Awake()
-    {
-        InputActions = new Control();
-
-    }
 
     void Start()
     {

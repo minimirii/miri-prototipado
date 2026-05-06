@@ -88,35 +88,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
     ""name"": ""Control"",
     ""maps"": [
         {
-            ""name"": ""New action map"",
-            ""id"": ""0b802765-771a-40fc-9005-638440d3fcbb"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""715a151b-966d-4e43-81cc-66923ba7c72a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""9aa41e1e-e2ec-4522-94ca-857e39f4973b"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Pajaros con traseros"",
+            ""name"": ""Pajaros"",
             ""id"": ""67791501-44cd-44b2-a6c9-962edc4046fd"",
             ""actions"": [
                 {
@@ -129,10 +101,10 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""position"",
+                    ""name"": ""Position"",
                     ""type"": ""Value"",
                     ""id"": ""325e3363-cdbc-43b6-bcb4-e021e0f17032"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -145,13 +117,22 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Clic"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e1c8f60-acc6-4fa3-ac97-012fd588ec78"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""359e5ccb-4b4b-416f-923c-de445345ca79"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/anyKey"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -162,11 +143,11 @@ public partial class @Control: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d0f18181-26ed-4830-a32a-dea96bc47090"",
-                    ""path"": ""<Mouse>/position/x"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""position"",
+                    ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -180,26 +161,34 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""action"": ""Lanzar"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""883982d9-7b9a-410d-bea4-3b076c35fd61"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Clic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
-        // Pajaros con traseros
-        m_Pajaroscontraseros = asset.FindActionMap("Pajaros con traseros", throwIfNotFound: true);
-        m_Pajaroscontraseros_presionado = m_Pajaroscontraseros.FindAction("presionado", throwIfNotFound: true);
-        m_Pajaroscontraseros_position = m_Pajaroscontraseros.FindAction("position", throwIfNotFound: true);
-        m_Pajaroscontraseros_Lanzar = m_Pajaroscontraseros.FindAction("Lanzar", throwIfNotFound: true);
+        // Pajaros
+        m_Pajaros = asset.FindActionMap("Pajaros", throwIfNotFound: true);
+        m_Pajaros_presionado = m_Pajaros.FindAction("presionado", throwIfNotFound: true);
+        m_Pajaros_Position = m_Pajaros.FindAction("Position", throwIfNotFound: true);
+        m_Pajaros_Lanzar = m_Pajaros.FindAction("Lanzar", throwIfNotFound: true);
+        m_Pajaros_Clic = m_Pajaros.FindAction("Clic", throwIfNotFound: true);
     }
 
     ~@Control()
     {
-        UnityEngine.Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, Control.Newactionmap.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Pajaroscontraseros.enabled, "This will cause a leak and performance issues, Control.Pajaroscontraseros.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Pajaros.enabled, "This will cause a leak and performance issues, Control.Pajaros.Disable() has not been called.");
     }
 
     /// <summary>
@@ -272,29 +261,44 @@ public partial class @Control: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
-    private readonly InputAction m_Newactionmap_Newaction;
+    // Pajaros
+    private readonly InputActionMap m_Pajaros;
+    private List<IPajarosActions> m_PajarosActionsCallbackInterfaces = new List<IPajarosActions>();
+    private readonly InputAction m_Pajaros_presionado;
+    private readonly InputAction m_Pajaros_Position;
+    private readonly InputAction m_Pajaros_Lanzar;
+    private readonly InputAction m_Pajaros_Clic;
     /// <summary>
-    /// Provides access to input actions defined in input action map "New action map".
+    /// Provides access to input actions defined in input action map "Pajaros".
     /// </summary>
-    public struct NewactionmapActions
+    public struct PajarosActions
     {
         private @Control m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public NewactionmapActions(@Control wrapper) { m_Wrapper = wrapper; }
+        public PajarosActions(@Control wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Newactionmap/Newaction".
+        /// Provides access to the underlying input action "Pajaros/presionado".
         /// </summary>
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
+        public InputAction @presionado => m_Wrapper.m_Pajaros_presionado;
+        /// <summary>
+        /// Provides access to the underlying input action "Pajaros/Position".
+        /// </summary>
+        public InputAction @Position => m_Wrapper.m_Pajaros_Position;
+        /// <summary>
+        /// Provides access to the underlying input action "Pajaros/Lanzar".
+        /// </summary>
+        public InputAction @Lanzar => m_Wrapper.m_Pajaros_Lanzar;
+        /// <summary>
+        /// Provides access to the underlying input action "Pajaros/Clic".
+        /// </summary>
+        public InputAction @Clic => m_Wrapper.m_Pajaros_Clic;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public InputActionMap Get() { return m_Wrapper.m_Pajaros; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -302,9 +306,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="NewactionmapActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="PajarosActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(PajarosActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -312,126 +316,23 @@ public partial class @Control: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="NewactionmapActions" />
-        public void AddCallbacks(INewactionmapActions instance)
+        /// <seealso cref="PajarosActions" />
+        public void AddCallbacks(IPajarosActions instance)
         {
-            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="NewactionmapActions" />
-        private void UnregisterCallbacks(INewactionmapActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />.
-        /// </summary>
-        /// <seealso cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />
-        public void RemoveCallbacks(INewactionmapActions instance)
-        {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="NewactionmapActions.AddCallbacks(INewactionmapActions)" />
-        /// <seealso cref="NewactionmapActions.RemoveCallbacks(INewactionmapActions)" />
-        /// <seealso cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />
-        public void SetCallbacks(INewactionmapActions instance)
-        {
-            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="NewactionmapActions" /> instance referencing this action map.
-    /// </summary>
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
-
-    // Pajaros con traseros
-    private readonly InputActionMap m_Pajaroscontraseros;
-    private List<IPajaroscontraserosActions> m_PajaroscontraserosActionsCallbackInterfaces = new List<IPajaroscontraserosActions>();
-    private readonly InputAction m_Pajaroscontraseros_presionado;
-    private readonly InputAction m_Pajaroscontraseros_position;
-    private readonly InputAction m_Pajaroscontraseros_Lanzar;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "Pajaros con traseros".
-    /// </summary>
-    public struct PajaroscontraserosActions
-    {
-        private @Control m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public PajaroscontraserosActions(@Control wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Pajaroscontraseros/presionado".
-        /// </summary>
-        public InputAction @presionado => m_Wrapper.m_Pajaroscontraseros_presionado;
-        /// <summary>
-        /// Provides access to the underlying input action "Pajaroscontraseros/position".
-        /// </summary>
-        public InputAction @position => m_Wrapper.m_Pajaroscontraseros_position;
-        /// <summary>
-        /// Provides access to the underlying input action "Pajaroscontraseros/Lanzar".
-        /// </summary>
-        public InputAction @Lanzar => m_Wrapper.m_Pajaroscontraseros_Lanzar;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Pajaroscontraseros; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="PajaroscontraserosActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(PajaroscontraserosActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="PajaroscontraserosActions" />
-        public void AddCallbacks(IPajaroscontraserosActions instance)
-        {
-            if (instance == null || m_Wrapper.m_PajaroscontraserosActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PajaroscontraserosActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_PajarosActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PajarosActionsCallbackInterfaces.Add(instance);
             @presionado.started += instance.OnPresionado;
             @presionado.performed += instance.OnPresionado;
             @presionado.canceled += instance.OnPresionado;
-            @position.started += instance.OnPosition;
-            @position.performed += instance.OnPosition;
-            @position.canceled += instance.OnPosition;
+            @Position.started += instance.OnPosition;
+            @Position.performed += instance.OnPosition;
+            @Position.canceled += instance.OnPosition;
             @Lanzar.started += instance.OnLanzar;
             @Lanzar.performed += instance.OnLanzar;
             @Lanzar.canceled += instance.OnLanzar;
+            @Clic.started += instance.OnClic;
+            @Clic.performed += instance.OnClic;
+            @Clic.canceled += instance.OnClic;
         }
 
         /// <summary>
@@ -440,27 +341,30 @@ public partial class @Control: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="PajaroscontraserosActions" />
-        private void UnregisterCallbacks(IPajaroscontraserosActions instance)
+        /// <seealso cref="PajarosActions" />
+        private void UnregisterCallbacks(IPajarosActions instance)
         {
             @presionado.started -= instance.OnPresionado;
             @presionado.performed -= instance.OnPresionado;
             @presionado.canceled -= instance.OnPresionado;
-            @position.started -= instance.OnPosition;
-            @position.performed -= instance.OnPosition;
-            @position.canceled -= instance.OnPosition;
+            @Position.started -= instance.OnPosition;
+            @Position.performed -= instance.OnPosition;
+            @Position.canceled -= instance.OnPosition;
             @Lanzar.started -= instance.OnLanzar;
             @Lanzar.performed -= instance.OnLanzar;
             @Lanzar.canceled -= instance.OnLanzar;
+            @Clic.started -= instance.OnClic;
+            @Clic.performed -= instance.OnClic;
+            @Clic.canceled -= instance.OnClic;
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PajaroscontraserosActions.UnregisterCallbacks(IPajaroscontraserosActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PajarosActions.UnregisterCallbacks(IPajarosActions)" />.
         /// </summary>
-        /// <seealso cref="PajaroscontraserosActions.UnregisterCallbacks(IPajaroscontraserosActions)" />
-        public void RemoveCallbacks(IPajaroscontraserosActions instance)
+        /// <seealso cref="PajarosActions.UnregisterCallbacks(IPajarosActions)" />
+        public void RemoveCallbacks(IPajarosActions instance)
         {
-            if (m_Wrapper.m_PajaroscontraserosActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_PajarosActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -470,42 +374,27 @@ public partial class @Control: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="PajaroscontraserosActions.AddCallbacks(IPajaroscontraserosActions)" />
-        /// <seealso cref="PajaroscontraserosActions.RemoveCallbacks(IPajaroscontraserosActions)" />
-        /// <seealso cref="PajaroscontraserosActions.UnregisterCallbacks(IPajaroscontraserosActions)" />
-        public void SetCallbacks(IPajaroscontraserosActions instance)
+        /// <seealso cref="PajarosActions.AddCallbacks(IPajarosActions)" />
+        /// <seealso cref="PajarosActions.RemoveCallbacks(IPajarosActions)" />
+        /// <seealso cref="PajarosActions.UnregisterCallbacks(IPajarosActions)" />
+        public void SetCallbacks(IPajarosActions instance)
         {
-            foreach (var item in m_Wrapper.m_PajaroscontraserosActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_PajarosActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PajaroscontraserosActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_PajarosActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="PajaroscontraserosActions" /> instance referencing this action map.
+    /// Provides a new <see cref="PajarosActions" /> instance referencing this action map.
     /// </summary>
-    public PajaroscontraserosActions @Pajaroscontraseros => new PajaroscontraserosActions(this);
+    public PajarosActions @Pajaros => new PajarosActions(this);
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "New action map" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Pajaros" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="NewactionmapActions.AddCallbacks(INewactionmapActions)" />
-    /// <seealso cref="NewactionmapActions.RemoveCallbacks(INewactionmapActions)" />
-    public interface INewactionmapActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNewaction(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Pajaros con traseros" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="PajaroscontraserosActions.AddCallbacks(IPajaroscontraserosActions)" />
-    /// <seealso cref="PajaroscontraserosActions.RemoveCallbacks(IPajaroscontraserosActions)" />
-    public interface IPajaroscontraserosActions
+    /// <seealso cref="PajarosActions.AddCallbacks(IPajarosActions)" />
+    /// <seealso cref="PajarosActions.RemoveCallbacks(IPajarosActions)" />
+    public interface IPajarosActions
     {
         /// <summary>
         /// Method invoked when associated input action "presionado" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -515,7 +404,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPresionado(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "position" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Position" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
@@ -528,5 +417,12 @@ public partial class @Control: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLanzar(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Clic" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClic(InputAction.CallbackContext context);
     }
 }
